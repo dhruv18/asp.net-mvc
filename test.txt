@@ -1,0 +1,17 @@
+global.asax.cs = application start() method.default application start method .
+
+routeconfig = default path for application start.
+
+HomeControler = different methods that return the views(or any string or variable).pass the response the view that stores the html page
+
+Controler = Creating Controler also Create the Folder of that controler name in View Folder.
+
+viewBag.Nmae ="Ashis"; //viewbag is dynamic container.
+
+@ViewBag.Name == in html page prints the value of the viewbag.name(Ashis)
+
+
+
+
+
+
