@@ -1,0 +1,9 @@
+<customErrors mode="On"> => web.config //for client side error show
+
+@: => for html code inside the razor view;
+
+html.Hiddenfor(model => model.Id) // for hidding the id in the front
+
+html.EditorFor(model => model.id) // getting the textbox with it's types are automatic
+
+TryUpdateModel()  ==> update the model
