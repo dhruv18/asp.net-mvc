@@ -1,0 +1,18 @@
+Create test case for all pages in mvc 
+
+public void Index(){
+
+//Arrange
+Controllername obj = new controllername()
+
+//Act
+viewresult  result = controller.Index() as viewresult;
+
+//assert
+assert.AreEqual("message",result.ViewBag.Message);  //different types of assert are used if it's fails the testcase will fails.
+
+ex:assert
+Assert.IsNotNull(result.Model); //for cheking that result of view does not have null model.
+
+}
+
