@@ -4,6 +4,9 @@
 
 html.Hiddenfor(model => model.Id) // for hidding the id in the front
 
-html.EditorFor(model => model.id) // getting the textbox with it's types are automatic
-
 TryUpdateModel()  ==> update the model
+
+prop => variable with getters and setters (SortCut)
+
+var model = new modelname();//accesing the Model in Controller. and passing this variable in to controller.return view(variableNameofModel)
+
