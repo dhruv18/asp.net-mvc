@@ -10,3 +10,71 @@ prop => variable with getters and setters (SortCut)
 
 var model = new modelname();//accesing the Model in Controller. and passing this variable in to controller.return view(variableNameofModel)
 
+//RouteConfig.cs
+creating default route->
+
+routes.maproute("routesName-abc",
+        "urlthatmatchthisroute"-abc/{name},
+        new { conroller = "nameofcontroller",action = "name",name=""});
+        
+actionresult Search(string name)
+{
+var message = server.htmlencode(name);
+return content(message);
+}
+
+ //redirecting in controller
+ return RedirectToAction("Incex","home");
+ return redirecttoaction("index","home",new {name=name});
+ //to route
+ return redirectToRoute("default",new {conroller ="",action="" });
+ //to file
+ return file(Server.mappath("~/content/site.css"),"text/css");
+ return json(new {message=message,name="scoot"},jsonrequestbehavior.allowget);  //retrun json result
+ 
+ //Attributes
+ [Authorize(Roles="admin")]//user should loged in and have to admin role to access the particular mehod
+ [Authorize]//also appiled to controller
+  
+  //custome filters
+  add class in filters folder and acces it in controller [nameoffilters]
+  
+ => Razor View
+  //not html.encoded in view can run harmfull scripts
+  html.raw();
+  
+  var firstrow = model.first();
+  @firstrow......any filled we can print form the model result filrst item
+  
+  @: //for display the html inside c# code in  @{}
+  
+  Layout = null;//inside the viewpage at @{}
+  
+  @RenderSection("Abc",required:true)//inside the _layout.html for display.implement inside view
+  @section featured{
+  abcd} 
+  
+  @html.actionlink("nametodisplay",actionname,controllername)
+  
+  //edit post
+  var review = sql select  query
+  if(tryupdatemdel(review)){
+  sql edit query
+  return view(Index)
+ }
+ 
+ //partila view
+ @html.Partial("_nameofpartialview",itemoranymodel)
+  
+  //html.Action
+  @html.Action("nameofActionincontroller","controllername")
+  in controller 
+  public actionresult nameofActionInControler{
+  return PartialView("_partialViewName",modelorAny());
+}
+
+//Attributes
+[ChildActionOnly]->prevent direct access of controller method from browser
+
+
+    
