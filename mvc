@@ -161,6 +161,35 @@ public actionresult edit([Bind(Exclude="nameofyourfilledtonotgetusingqerystringo
 Automatic migration was not applied because it would result in data loss.
 to solve this agin run command => update-database -verbose -Force
 
+//disable the scripts and css files to be display in browser view source.
+  which are bind using the bundel file=> go to web.config and make <compilation debug="False">
+  
+//Ajax for serach without refrecing the Page
+@using (Ajax.BeginForm(
+        new AjaxOptions
+        {
+        httpMethod ="get",
+        InsertionMode = InsertionMode.Replace,
+        UpdateTargetId = "restaurednList" //for section of page in div which will refreace after succcesfull ajax form
+        }))
+        {
+        <input type="search" name ="searchTerm">
+        <input type = "submit" value ="search by Name">
+        }
+/in controller write this for ajax form submmit 
+ if(Request.IsAjaxRequest())
+ {
+ return PartialView("_abc",model);
+ }
+ 
+OR //Without ajax.beginform we can use the javascript code of over own
+<form method="get" action="@Url.Action("Index")"
+                data-otf-ajax="true" data-otf-target="#restaurednList">
+    <input type="search" name="searchTerm">
+    <input type="submit" value = "search by Name">
+</form>
+/Now create the new otf.js file for all js code in project
+        file will be in the folder
 
 
 
