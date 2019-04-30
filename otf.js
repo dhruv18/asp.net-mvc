@@ -58,7 +58,7 @@ $(function () {
 
     };
 
-    $("form[data-otf-ajax='true']").submit(ajaxFormSubmit);
+    $("form[data-otf-ajax='true']").submit(ajaxFormSubmit); //Find all the form which having the this attribute true and on form submiit (ajaxFormSubmit()) called
     $("input[data-otf-autocomplete]").each(createAutocomplete);
 
     $(".main-content").on("click", ".pagedList a", getPage);
