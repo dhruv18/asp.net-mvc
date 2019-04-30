@@ -77,4 +77,60 @@ return content(message);
 [ChildActionOnly]->prevent direct access of controller method from browser
 
 
+///Entity Framework-----------
+//dispose method in controller to clean up the resources that canbe open  the dbcontext
+ex:if(_db != null){
+_db.Dispose();
+}
+base.Dispose(disposing);
+}
     
+//ServerName :- in Mocrosoft Sql Seerver Name:-(Localdb)\v11.0 
+class with tabel filled
+main class will be :- public class abac:DbContext{ public DbSet<classname> namefortabel {get;set;}
+
+public constructorofdbcontexclass() : base("name=DefaultConnection"){}//write connection in web.config for database connection
+
+//DataMigration-----------Creating schema automatically
+install in package manager console
+Enable-Migrations -ContextTypeName nameofclasshavingDbContextHerited
+//will create migrations folder adn configuration.cs inside
+p o v seed(){}//use to execute the database with some initial data inside tabel and run every time we update the database
+//for updating database in pakcage manager console => Update-Database -Verbose  
+
+//Linq-----------------
+var query = from  r in _db.Restaurants
+                where r.Cuntry == "USA"
+                orderby r.Name
+                select r;
+ or
+ var query = _db.Restaurants
+                .where(r => r.country == "USA")
+                .OrderBy(r => r.Name)
+                .Skip(10)//fore Pagging
+                .Take(10);//fore Paging
+and
+var query = from  r in _db.Restaurants
+                orderby r.Revies.Averae(review => review.Rating)descending
+                select new classnamewithit'sfillds
+                {
+                Id = r.Id,
+                Name = r.Name,
+                City = r.city;
+                };//it will store the query result in class filleds
+ or
+ var query = _db.Restaurants
+                .OrderBydecending(r => r.Reviews.Average(review => review.Rating
+                .Take(10)
+                .select(r => new ResaurantListViewModel
+                {
+                Id = r.Id,
+                Name = r.Name,
+                City = r.city;
+                };//it will store the query result in class filleds
+
+//for Filtering the search
+
+
+
+
