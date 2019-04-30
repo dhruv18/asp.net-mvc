@@ -130,6 +130,36 @@ var query = from  r in _db.Restaurants
                 };//it will store the query result in class filleds
 
 //for Filtering the search
+.where(r=>searchtearm ==null || r.Name.StartsWith(Searchtearminparameterofaction))//for finding records that start with any latter
+in view use <form method=get> and use the input type=search and name of inputtype should match with the controller action parametername..
+
+//htmlActionlink With controllername
+@html.ActionLink("nametoshow","actionName","controllername",new{id=item.Id},null)
+
+//to show details of item 
+//in details action in controller
+public actionresult detailsl(int id){
+Resaurant restaurant = db.Restaurants.Find(id);//Find will search in tabel with perticular id and display details if available
+retrun view(restaurant)
+}
+
+//in controller if(ModelState.IsValid) -> used for cheking all the data in post method are containing the valid info
+
+//in Edit
+_db.Entry(review).state = EntityState.Modified;
+
+//OverPosting Or Mass assignment
+passing values to controller using query string --
+so, to solve use the bind in controller action method..
+public actionresult edit([Bind(Exclude="nameofyourfilledtonotgetusingqerystringorany..")] )
+
+//in model validation to pass the null value of nay field
+[DisplayFormat(NullDisplayText="annonymous")]
+
+
+//Validation in Model
+Automatic migration was not applied because it would result in data loss.
+to solve this agin run command => update-database -verbose -Force
 
 
 
