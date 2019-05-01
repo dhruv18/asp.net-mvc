@@ -192,4 +192,58 @@ OR //Without ajax.beginform we can use the javascript code of over own
         file will be in the folder
 
 
+//AutoCompete in searchbox shows
+ public ActionResult Autocomplete(string term)
+        {
+            var model =
+                _db.Restaurants
+                   .Where(r => r.Name.StartsWith(term))
+                   .Take(10)
+                   .Select(r => new
+                   {
+                       label = r.Name
+                   });
+            return Json(model, JsonRequestBehavior.AllowGet);
+        }
+<input type="search" name="searchTerm" data-otf-autocomplete="@Url.Action("Autocomplete")">
+
+
+2//Paging 
+search in nuget and install in online search Pagelist and install pagelist.mvc
+using PageList;
+public ActionResult Index(string searchTerm = null, int page = 1)
+var model =
+                _db.Restaurants
+                   .OrderByDescending(r => r.Reviews.Average(review => review.Rating))
+                   .Where(r => searchTerm == null || r.Name.StartsWith(searchTerm))
+                   .Select(r => new RestaurantListViewModel
+                            {
+                                Id = r.Id,
+                                Name = r.Name,
+                                City = r.City,
+                                Country = r.Country,
+                                CountOfReviews = r.Reviews.Count()
+                            }).ToPagedList(page, 10);
+/Now edit the reference page @model to
+@model IPagedList<OdeToFood.Models.Restauran>
+Or to Add the defaultNameSpace we can do in web.config inside View
+      Add Namespace
+      <add namespace = "PagedList"  />
+      <add namespace = "OdeToFood.Models" />
+      //required visual studio to close for effect
+//Add this in view for pageing
+ <div class="pagedList" data-otf-target="#restaurantList">
+        @Html.PagedListPager(Model, page => Url.Action("Index", new { page }),
+        PagedListRenderOptions.MinimalWithItemCountText)
+    </div>
+ 
+ 
+///Paging Pacakge will install PagedList.css in themes folder so refrence it in bundelfile for css effect
+
+//Now to Make paging async we can do it with taking the referecne of body content
+  from the _layot page <section class="main-content">  /and this contetn never destroy it's always on the page
+  so we can get it using  $(".main-content").on("click", ".pagedList a", getPage);
+  
+  
+
 
