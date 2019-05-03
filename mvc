@@ -424,10 +424,54 @@ public actionresul mainmehtod()
         3.elmah //install using nuget package manager Elmah.Mvc
                 http://localhost:50719/elmah to chek errors
                 elmah present in web.confing in root directory
-                
+   
+   //Deployment and Configuration
+   
+        Fetching values from web.config
+        Add in <appSetting>
+        <add key="abc" value="5">
+        /in controleer
+        ViewBag.configValue = ConfigurationManager.AppSetting["abc"];
+        /in view
+        @ViewBag.configValue
+   
+   //Configuration Hierarchical
+        Machine config //basic config for machine C:\Windows\Microsoft.NET\Framework\v4.0.30319\Config\machine
+        machine web.config //default settting for all application of machine C:\Windows\Microsoft.NET\Framework\v4.0.30319\Config\WEb      
+        Parent's web.config //
+        your web.config
         
+   //hosting in iis
+        install software using microsoft web platform installer
+        1.iis:asp.net ..
+        2.iis:management Console
+        3.Sql server Express 2009 R2
+        4.sql Server express 2009 R2 Management studio experess with spi
+      
+     Remove old migration files and remove database
+     crate new migration file with 
+     Add-Migration InitialCreate
+     
+     in seed method of migration 
+     add chek 
+     if(!WebSecurity.Initialized)
+     {
+       WebSecurity.InitializeDatabaseConnection("DefaultConnection",
+                "UserProfile", "UserId", "UserName", autoCreateTables: true);
+     }
+      
+     and in Global .asax.cs
+     if(!WebSecurity.Initialized){
+      WebSecurity.InitializeDatabaseConnection("DefaultConnection", "UserProfile", "UserId", "UserName", autoCreateTables: true);
+     }
+     
+     NOw to run migration on app start add in global asax.cs
+     var migrator = new DbMigrator(new Configuration());
+     migrator.Update();
         
-               
-               
-        DateTime.Now.ToString() in view
+ //Now to deploy
+     in project click publish
+     
+ //Azur
+        TestCloudDK@outlook.com
         
