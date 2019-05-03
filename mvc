@@ -1,3 +1,5 @@
+(localdb)\MSSQLLocalDB //for creating the microsoft sql server use this for local testing server
+
 <customErrors mode="On"> => web.config //for client side error show
 
 @: => for html code inside the razor view;
@@ -341,4 +343,91 @@ inside that all the code are comment because before using facbook or twitter we 
 But, google can provide without Registration
 uncomment OAuthWebSecurity.RegisterGoogleClient();
 
+
+//Use Catch (duration is in second)
+add filter [OutputCache(Duration = 60)] in controller action methods...
+
+//ChildActionOnly will use when this contetn does not want to retrive every time page referece in 60 seconds
+[ChildActionOnly]
+[OutputCache(Duration = 60)]
+public actionresult sayhello(){
+return Content("hello);
+} //we can call this child action in view using @html.Action("sayhello")
+
+[OutputCache(Duration = 5) //will execute at every reload of 5 second
+public actionresul mainmehtod()
+{}
+        
+//Catch in Pagging
+[OutputCache(duration=300)] :- in pagiing it's catch data on every 
+                               different parameter to the action.
+
+        //in this if we send request using the browser url or ajax
+                request will send get request and browser response 
+                catch result only not full html body to solve this by adding
+          [OutputCache(duration=300,VeryByHeader = "X-Reqested-With")]//becouse x-requested will Present in header only on ajax request not full body reqest 
+          But for response some browser does not find the difference so make this woek add
+          [OutputCache(duration=300,VeryByHeader = "X-Reqested-With,Location=OutputCatcheLocation.Server)]//this will store catch on server
+          Or
+          another solution is to create new method for ajax Request
+
+//Catch Profiles for large site need to change catch value freqentliy
+ 
+ add in web.config
+ <catching>
+ <outputCaheSettings>
+ <outputCacheProfiles>
+ <add name="Aggresive" duration="300" />
+ <add name="Mild" duration="10" />
+ </outputCacheProfiles>
+ </caching>
+ 
+ and use it using
+ [OutputCache(CacheProfile="Aggresive",VaryByParam="nameofParameterofmethod")]
+ 
+//Localization Setting the DateTime and currency symbol globally for different locations
+        add Globalization section in web.config file
+        <globalization culture="auto" uiCulture="auto" />
+        Example:- In View
+        var amount =10.0m;
+        var someDate = new DateTime(2002,7,9);
+        print using
+        @amount.ToString("C") //c will formate it with currency
+        @SomeDate.ToShortDateString()
+
+//For localization of resources like text
+        create .resx file
+        change acces modifier :- public
+        Name:Greeting Value:hello
+        /Save this file it will be base resource file
+        to use it in view :- @namespace.views.home(class).Resources.Greeting
+        /Now for different languages add second resource file with same name of first with extantion .fr.resx
+        Name:Greeting Value:Bonjour
+        //if not working for french chek if in application we use any filter[OutputCache(VaryByHeader = "x-requested-with")] //this will not change catch for different language
+        to work with this use [OutputCache(VaryByHeader = "x-requested-with;Accept-Language")]
+        
+        We can also use this in controller or model for validation or creating variables
+        EX:-
+                in validation add
+                [Required(ErrorMessageResourceType=typeof(namespace.views.home.resources),ErrorMessageResourceName="Greeting")]
+                
+   //Diagnostics 
+        1 Asp.net health monitoring
+        2 log4net
+        3 elmah
+        4 p&p
+        
+        //asp.net health monitoring present in web.config in machine level web.config
+        C:\Windows\Microsoft.NET\Framework\v4.0.30319\Config
+        to chek erros go to windows event Viewer
+        
+        3.elmah //install using nuget package manager Elmah.Mvc
+                http://localhost:50719/elmah to chek errors
+                elmah present in web.confing in root directory
+                
+        
+        
+               
+               
+        DateTime.Now.ToString() in view
         
