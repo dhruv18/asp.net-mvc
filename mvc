@@ -244,6 +244,101 @@ Or to Add the defaultNameSpace we can do in web.config inside View
   from the _layot page <section class="main-content">  /and this contetn never destroy it's always on the page
   so we can get it using  $(".main-content").on("click", ".pagedList a", getPage);
   
-  
+//Add filter [RequireHttps] in login action in account controller for htttps requests. so  it makes
+        UserName and Password Encrypted throw netwrok so browser debugger can not find data
+        In Network tab in Request body;
 
+//Add filter [Authorize] in any action (or holeController) in controller so that it's action does not execute without user Login.
+        so user should login to access that action in controller.
+        This filter works throws Web.config in <authentication mode="forms>
+                                                <forms loginUrl="~/Account/Login" timeout="2880" />
+                                                </authentication>
+        [AllowAnonymous] will allow acces without login inside [authorize].
+        [Authorize(Roles="administrators,sales")] //will allow        
 
+//Add the users Roles Using MembershipAPI(SimpleMembershipProvider)
+        we can add Roles using Migration inside seedMethod
+        make private function and call using inside seedmethod
+        Now in function (){
+        WebSecurity.InitializeDatabaseConnection("DefaultConnection",
+        "UserProfile", "UserId", "UserName", autoCreateTables: true);
+        
+         var roles = (SimpleRoleProvider)Roles.Provider;
+         var membership = (SimpleMembershipProvider)Membership.Provider;
+
+            if (!roles.RoleExists("Admin"))
+            {//check if role Admin is present if not then create that role
+                roles.CreateRole("Admin");
+            }
+            if (membership.GetUser("sallen", false) == null)
+            {//chek is there user is sallen if not create that user and it's passwrod
+                membership.CreateUserAndAccount("sallen", "imalittleteapot");
+            }
+            if (!roles.GetRolesForUser("sallen").Contains("Admin"))
+            {//chcke is sallen in admin role if not add it in admin role
+                roles.AddUsersToRoles(new[] { "sallen" }, new[] { "admin" });
+            } 
+         }------------------------------------------------
+         Now Update he data-base in console
+         update-database -verbose //will show error role Manager feature has not been enabled.
+         //to Solve above error add code in web.config inside <system.web>
+         <roleManager enabled="true" defaultProvider="simple">
+         <providers>
+         <clear/>
+         <add name="simple" type="WebMatrix.WebData.SimpleRoleProvider,  
+                                 WebMatrix.WebData"/>
+         </providers>
+         </roleManager>
+         <membership defaultProvider="simple">
+         <providers>
+          <clear />
+         <add name="simple" type="WebMatrix.WebData.SimpleMembershipProvider,                               WebMatrix.WebData" />
+         </providers>
+         </membership>
+         ------------------------------------------------------------
+         now update-databse -verbose //will run without error
+         //now for displaying perticular link in view only if user is in admin role to do it
+         @if(User.IsInRole("admin)){
+                @Html.ActionLink("Create New","Create")
+                }
+                
+                
+// Attack Cross site request forgery(CSRF)
+        to do :- create new project
+                add new html page
+                add contetn of html page from the site page we want to acces(Ex:- copy contetn of registration page of site from brows inspect copy all form elements and past in over html form body.
+                add the full form contetn in over html body from the  target site form which is going to submitt
+                Now in over html page form change the action to...
+                <form action="url of target site (registrationpage)" method="post">
+                Now to make form submmited automatically without button we can do that with script..
+                <script> setTimeout(function () {  window.theform.submit(); },2000); </script>
+                Now run the htm page ....which will redirect us to login page becouse we are not loggin to target site..
+                so, to submit over form we can do with copy over link from browser...
+                and make some hyperlink or any Image will run this page using <a> tag...
+                and make something that target sites admin will click over image or any things from spam mail or any image clik
+                so, haker's html page will run throw target site admin and it will automatically submit over page with all the registration details...
+                so, now we have success full submit over data to database without it's access..
+
+Now to prevent this attack := do that using that only target site's original form only submmited not any other malecius form wich is outside the target site...
+                              TO prevent in Asp.net where the form post is submiited we can add in filter in that method
+                              [ValidateAntiForgeryToken] //it will only alow form with aouth token generated from original form
+                              To generate auoth toke in order to work with this  [ValidateAntiForgeryToken] filter we need to add
+                              @html.AntiForgeryToken() in  view page wher form is submiited 
+-----------------------------------------------------------------------------------------------------------------------------------
+
+//OpenId and OAuth
+OpenId:http://openid.net
+OAuth:http://oauth.net
+
+DotNetOpenAuth:
+www.dotnetopenauth.net/
+source:github.com/DotNetOpenAuth
+
+to use OpenId an OAuth
+it will allow user to login using google or facebook or twitter
+to use go to App_Start/authConfig.cs
+inside that all the code are comment because before using facbook or twitter we need to register the webstie to facebook or twiiter ..
+But, google can provide without Registration
+uncomment OAuthWebSecurity.RegisterGoogleClient();
+
+        
