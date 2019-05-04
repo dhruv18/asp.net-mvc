@@ -1,1 +1,3 @@
 1 in UserController GetUserProfile :- added   await Task.WhenAll(roles, Sites, response, groupMappingDetail); /b-10/a-5
+       Befor:it will wati of first await complete and then run next await
+       after:await for both together
