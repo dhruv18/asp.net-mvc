@@ -3,3 +3,5 @@ and configure the service reference with
 click allow generation of asynchronous operation
     generate task-based operation
 
+//use   await Task.WhenAll(roles, Sites, response, groupMappingDetail); for optimization
+
