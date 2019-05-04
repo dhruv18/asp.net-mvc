@@ -80,6 +80,23 @@ return content(message);
 
 
 ///Entity Framework-----------
+for Creating the Database Automatically
+1.create some class files inside models with it's prop methods which we wand to be in the tabel colums
+2.each class file will create new tabel in database
+3.now for main class create class with name of database we wants and save class file.
+4.now in this 3no class file override the DbContext 
+        public DbSet<1classfile> nameoftablewewanttocreate {get;set;}
+        public DbSet<1classfile> nameoftablewewanttocreate {get;set;}
+5.now the build the project it will create the database
+6.now to view the database go to server explorar
+7.add new connection select server as :- -(Localdb)\v11.0 for local testing
+8.now in select database dropdown we will find the name of database which we create in step-4.
+9.we cab spacified the which database and server the entitiy frame work will create database using adding constructor in step-4 class
+10. 9.. like public constructorofdbcontexclass() : base("name=DefaultConnection"){}//here the Name="xx" will be the connection string name from the web.config file which we want to connect
+                                //we can change the name="xx" based on the connectionstring we want to use
+
+
+
 //dispose method in controller to clean up the resources that canbe open  the dbcontext
 ex:if(_db != null){
 _db.Dispose();
@@ -91,12 +108,14 @@ base.Dispose(disposing);
 class with tabel filled
 main class will be :- public class abac:DbContext{ public DbSet<classname> namefortabel {get;set;}
 
-public constructorofdbcontexclass() : base("name=DefaultConnection"){}//write connection in web.config for database connection
 
-//DataMigration-----------Creating schema automatically
+
+//DataMigration-----------Creating schema automatically for the database and track changes of the database class file 
 install in package manager console
 Enable-Migrations -ContextTypeName nameofclasshavingDbContextHerited
 //will create migrations folder adn configuration.cs inside
+in configuration.cs file there will be AutomaticMigrationsEnabled = falseorTrue;
+//if it's true it's automatically change the schema of the database acording to the changes we made in class file
 p o v seed(){}//use to execute the database with some initial data inside tabel and run every time we update the database
 //for updating database in pakcage manager console => Update-Database -Verbose  
 
