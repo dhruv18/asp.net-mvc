@@ -1,1 +1,5 @@
+Add Service Reference to project
+and configure the service reference with 
+click allow generation of asynchronous operation
+    generate task-based operation
 
