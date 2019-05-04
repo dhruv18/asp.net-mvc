@@ -1,0 +1,1 @@
+1 in UserController GetUserProfile :- added   await Task.WhenAll(roles, Sites, response, groupMappingDetail); /b-10/a-5
