@@ -5,3 +5,8 @@ click allow generation of asynchronous operation
 
 //use   await Task.WhenAll(roles, Sites, response, groupMappingDetail); for optimization
 
+//add filter to controller for timeout the async
+    1.[AsyncTimeout(1200)] in controller
+    2.p as task Index(CancellationToken ctk)
+    3.[HandleError(ExceptionType=typeof(TimeoutException), View="Timeout")] //for user to show custome error page when timeout
+
