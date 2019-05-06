@@ -1,0 +1,36 @@
+Owin :- it's specification that defines an api for framework and services to coperate
+katana :- it's microsoft implementation of owin using microsoft components
+
+create console app
+add packages
+install-package Microsoft.Owin.Hosting
+install-package Microsoft.Owin.Host.HttpListener
+
+class program{
+static void main(string[] args){\
+
+//for hosting the web site
+string uri="http://localhost:8080";
+using (WebApp.start<Startup>(uri))
+{
+console.writeline("started");
+console.readkey();//tostop server at any key press
+console.writelin("stopping");
+}
+}
+}
+ public class Startup
+    {
+        public void Configuration(IAppBuilder app)
+        {     //iAppbuilder allows how the application behave on http reqest and response
+        
+          app.Run(ctx =>{
+          //ctx.Environment//it's contains all the information about the request :- header,cookes,path
+          return ctx.Response.Write
+          })//app.run handels the all http request
+       }
+
+///now to add the home screen in app start
+install-Package Microsoft.Owin.Diagnostics or add install-Package -IncludePrerelease Microsoft.Owin.Diagnostics
+and add in configuration mehod 
+app.useWelcomePage();
