@@ -34,3 +34,23 @@ console.writelin("stopping");
 install-Package Microsoft.Owin.Diagnostics or add install-Package -IncludePrerelease Microsoft.Owin.Diagnostics
 and add in configuration mehod 
 app.useWelcomePage();
+
+
+AppFunc :- provide how component process and interact rquest to the server by providing the deligets
+           Func<IDictionary<string,object>,Task>;
+           
+          //create appfunc in global
+          using AppFunc = Func<IDictionary<string,object>,Task>;
+
+For webAPI in katana
+    Install-Package Microsoft.AspNet.WebApi.OwinSelfHost
+    
+for hosting it's in iis
+install-package Microsoft.Owin.Host.SystemWeb
+
+for running with cmd
+
+D:\pularsign\aspdotnet-mvc5-fundamentals\2-aspdotnet-mvc5-exercise-files\excerci
+ses\after\KatanaIntro\KatanaIntro\bin>"c:\Program Files\IIS Express\iisexpress.e
+xe"/path:D:\pularsign\aspdotnet-mvc5-fundamentals\2-aspdotnet-mvc5-exercise-file
+s\excercises\after\KatanaIntro\KatanaIntro
