@@ -1,0 +1,27 @@
+public class Employee{
+public string name {get;set;}
+}
+Employee emp = new Employee{
+name = dhruv;
+};
+Employee emp2 = new Employee{
+name = dhruv2;
+};
+list<Employee> listEmp = new list<Employee>();
+listEmp.add(emp);
+listEmp.add(emp2);
+
+using System.Web.Script.Serialization;
+
+//Convert asp.net Object into javascript json 
+ JavaScriptSerializer javaScriptSerializer = new JavaScriptSerializer();
+ string JSONString = javaScriptSerializer.Serialize(listEmployee);
+
+console.write(JSONString);
+
+now jsonstring has the "" in every name which is not valid for c#.so to solve this replace " into \" .
+
+string jsonString = "[{\"firstName\":\"Todd\",\"lastName\":\"Grover\",\"gender\":\"Male\",\"salary\":50000},{\"firstName\":\"Sara\",\"lastName\":\"Baker\",\"gender\":\"Female\",\"salary\":40000}]";
+
+JavaScriptSerializer javaScriptSerializer = new JavaScriptSerializer();
+List<Employee> employees = (List<Employee>)javaScriptSerializer.Deserialize(jsonString, typeof(List<Employee>));
