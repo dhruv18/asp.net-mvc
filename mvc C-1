@@ -95,6 +95,21 @@ for Creating the Database Automatically
 10. 9.. like public constructorofdbcontexclass() : base("name=DefaultConnection"){}//here the Name="xx" will be the connection string name from the web.config file which we want to connect
                                 //we can change the name="xx" based on the connectionstring we want to use
 
+//Entity Framework WIth Codefirst For mysql Database----------------------
+1.EntityFramework
+2.MySql.Data.Entity
+3.Create class in modal and another class for creating tables having property
+        public DbSet<Student> Products{get;set;}
+         public WebAppContext()  
+            //Reference the name of your connection string ( WebAppCon )  
+            : base("WebAppCon") { }  
+4.<connectionStrings>  
+    <add name="WebAppCon" providerName="MySql.Data.MySqlClient" connectionString="server=localhost;userid=root;password=rajeesh123;database=WebAppMySql;persistsecurityinfo=True" />  
+  </connectionStrings>  
+5.Enable-Migrations 
+6.add-migration Initial
+7.Update-Database -Verbose — if it is successful then we can see this message (Running Seed method).
+
 
 
 //dispose method in controller to clean up the resources that canbe open  the dbcontext
